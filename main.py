@@ -19,6 +19,19 @@ import os
 import xlsxwriter
 
 
+class Project:
+    # excel表格中的sheet名字
+    sheetName = ""
+    # 项目跟路径
+    rootPath = ""
+
+    def __init__(self, sheetname, rootpath):
+        self.sheetName = sheetname
+        self.rootPath = rootpath
+
+    def __str__(self):
+        return 'sheetName: %s, rootPath: %s' %(self.sheetName, self.rootPath)
+
 def readfile(path):
     print("readfile() path: " + path)
     file = open(path, "r")
@@ -74,15 +87,54 @@ def testlistdir(path):
                 parsexml(target)
     return
 
+
 def testxlsxwriter(path):
-    workbook=xlsxwriter.Workbook(path)
-    worksheet=workbook.add_worksheet('testSheet')
+    workbook = xlsxwriter.Workbook(path)
+    worksheet = workbook.add_worksheet('testSheet')
     worksheet.write(2, 2, "22")
     worksheet.write(3, 3, "33")
     workbook.close()
     return
 
-#parsexml("d:\strings_untranslated.xml")
+def createproject():
+    projectlist = list()
+    project1 = Project("屏保", "D:/Code/Android/aimbot/AimbotScreenDisplay")
+    projectlist.append(project1)
+    project2 = Project("用户管理", "D:/Code/Android/aimbot/AndroidService_UserMgr")
+    projectlist.append(project2)
+    return projectlist
+
+def createsheets(workbook, projectlist):
+    sheetlist = list()
+    for project in projectlist:
+        worksheet = workbook.add_worksheet(project.sheetName)
+        sheetlist.append(worksheet)
+    return sheetlist
+
+def printboundary(str):
+    print("=======================================" + str + "=======================================")
+    return
+
+def main():
+    # 获取文件列表
+    projectlist = createproject()
+    printboundary("获取项目名字和路径")
+    for project in projectlist:
+        print(project)
+
+    # 创建xlsx
+    workbook = xlsxwriter.Workbook("D:/result.xlsx")
+    # 创建sheet列表
+    sheetlist = createsheets(workbook, projectlist)
+    # 处理每个应用
+
+
+    workbook.close()
+    return
+
+# parsexml("d:\strings_untranslated.xml")
 # test()
-#testlistdir("d:/Code/Android/aimbot/AndroidService_Setting")
-testxlsxwriter("d:\\abc.xlsx")
+# testlistdir("d:/Code/Android/aimbot/AndroidService_Setting")
+# testxlsxwriter("d:\\abc.xlsx")
+
+main()
