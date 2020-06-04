@@ -26,7 +26,7 @@ def createproject():
     project1 = Project("屏保", "D:\\Code\\Android\\aimbot\\AimbotScreenDisplay")
     projectlist.append(project1)
     project2 = Project("用户管理", "D:\\Code\\Android\\aimbot\\AndroidService_UserMgr")
-    # projectlist.append(project2)
+    projectlist.append(project2)
     project3 = Project("开机向导", "D:\\Code\\Android\\aimbot\\AndroidService_BootWizard")
     projectlist.append(project3)
     return projectlist
@@ -53,9 +53,13 @@ def fillsheet(sheet, file, iddict, column, modify):
 
     line = len(iddict)
 
-    print(sheet)
-
     for child in root:
+
+        if child.tag == "plurals":
+            print("!!!!!!!!!!!!!!!plurals: " + child[0].text)
+
+        if child.tag == "string-array":
+            print("!!!!!!!!!!!!!!!string-array: " + child[0].text)
 
         if modify:
             line = line + 1
@@ -75,6 +79,7 @@ def generatesheet(project):
     valueslist.append("values-zh-rCN")
     valueslist.append("values-zh-rTW")
     valueslist.append("values-th-rTH")
+    valueslist.append("values-ko-rKR")
     # 文件列表的列表, fileslist[0]为values文件下的全部文件, fileslist[1]为values-en文件夹下的全部文件
     fileslist = list()
     # 行

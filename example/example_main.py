@@ -28,25 +28,22 @@ def parsexml(path):
     root = tree.getroot()
 
     for child in root:
-        print("===================================, attrib: " + child.attrib["name"])
-        print(child.tag, child.attrib)
-        str1 = "tag is " + child.tag
-        print(str1)
-        str2 = "attrib.name is " + child.attrib["name"]
-        print(str2)
-        str3 = "text is " + child.text
-        print(str3)
+        if child.tag == "string":
+            print("string.name is " + child.attrib["name"] + ", text is " + child.text)
+
+        if child.tag == "string-array":
+            childlist = list(child)
+            for item in childlist:
+                print("string-array item is " + child.attrib["name"]
+                      + ", index is " + str(childlist.index(item))
+                      + ", text is " + item.text)
+
         if child.tag == "plurals":
-            print("****************************************************************")
-            # one
-            print(child[0].attrib["quantity"])
-            # item
-            print(child[0].tag)
-            # Have an orange
-            print(child[0].text)
-            # Have %d oranges
-            print(child[1].text)
-            print("****************************************************************")
+            childlist = list(child)
+            for item in childlist:
+                print("plurals item is " + child.attrib["name"]
+                      + ", quantity is " + item.attrib["quantity"]
+                      + ", text is " + item.text)
     return
 
 def test() -> None:
