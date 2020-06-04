@@ -109,6 +109,13 @@ def createproject():
 def createsheets(workbook, projectlist):
     for project in projectlist:
         project.sheet = workbook.add_worksheet(project.sheetName)
+        # 修改sheet的列宽
+        project.sheet.set_column('A:A', 40)
+        project.sheet.set_column('B:B', 50)
+        project.sheet.set_column('C:C', 50)
+        project.sheet.set_column('D:D', 50)
+        project.sheet.set_column('E:E', 50)
+        project.sheet.set_column('F:F', 50)
     return
 
 def printboundary(str):
