@@ -27,6 +27,8 @@ def createproject():
     projectlist.append(project1)
     project2 = Project("用户管理", "D:\\Code\\Android\\aimbot\\AndroidService_UserMgr")
     # projectlist.append(project2)
+    project3 = Project("开机向导", "D:\\Code\\Android\\aimbot\\AndroidService_BootWizard")
+    projectlist.append(project3)
     return projectlist
 
 def createsheets(workbook, projectlist):

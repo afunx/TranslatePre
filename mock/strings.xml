@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wifi_dialog_title">Enter the password</string>
+
+    <string-array name="faces_list">
+        <item>发呆#face_daze</item>
+        <item>开心#face_happy</item>
+        <item>爱心#face_love</item>
+        <item>害羞#face_shy</item>
+        <item>音乐#face_music</item>
+        <item>说话#face_speak</item>
+        <item>难过#face_upset</item>
+        <item>吃惊#face_surprise</item>
+        <item>调皮#face_naughty</item>
+        <item>奸笑#face_sinister</item>
+        <item>委屈#face_crievance</item>
+        <item>得意#face_proud</item>
+        <item>默认#face_public</item>
+        <item>微笑#face_smile</item>
+    </string-array>
+
+    <plurals name="orange">
+        <item quantity="one">Have an orange</item>
+        <item quantity="other">Have %d oranges</item>
+    </plurals>
+
+</resources>

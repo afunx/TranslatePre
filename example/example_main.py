@@ -28,6 +28,7 @@ def parsexml(path):
     root = tree.getroot()
 
     for child in root:
+        print("===================================, attrib: " + child.attrib["name"])
         print(child.tag, child.attrib)
         str1 = "tag is " + child.tag
         print(str1)
@@ -35,7 +36,17 @@ def parsexml(path):
         print(str2)
         str3 = "text is " + child.text
         print(str3)
-        break
+        if child.tag == "plurals":
+            print("****************************************************************")
+            # one
+            print(child[0].attrib["quantity"])
+            # item
+            print(child[0].tag)
+            # Have an orange
+            print(child[0].text)
+            # Have %d oranges
+            print(child[1].text)
+            print("****************************************************************")
     return
 
 def test() -> None:
@@ -76,7 +87,7 @@ def testxlsxwriter(path):
     return
 
 
-# parsexml("d:\strings_untranslated.xml")
+# parsexml("../mock/strings.xml")
 # test()
-# testlistdir("d:/Code/Android/aimbot/AndroidService_Setting")
+testlistdir("../mock")
 # testxlsxwriter("d:\\abc.xlsx")
