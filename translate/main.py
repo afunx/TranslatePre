@@ -55,21 +55,58 @@ def fillsheet(sheet, file, iddict, column, modify):
 
     for child in root:
 
-        if child.tag == "plurals":
-            print("!!!!!!!!!!!!!!!plurals: " + child[0].text)
-
-        if child.tag == "string-array":
-            print("!!!!!!!!!!!!!!!string-array: " + child[0].text)
-
         if modify:
-            line = line + 1
-            iddict[child.attrib["name"]] = line
-            sheet.write(line, 0,  child.attrib["name"])
-            sheet.write(line, column, child.text)
+            if child.tag == "string":
+                line = line + 1
+                textid = child.attrib["name"]
+                text = child.text
+                iddict[textid] = line
+                sheet.write(line, 0, textid)
+                sheet.write(line, column, text)
+
+            elif child.tag == "string-array":
+                childlist = list(child)
+                for item in childlist:
+                    line = line + 1
+                    textid = child.attrib["name"] + "$string-array$" + str(childlist.index(item))
+                    text = item.text
+                    iddict[textid] = line
+                    sheet.write(line, 0, textid)
+                    sheet.write(line, column, text)
+
+            elif child.tag == "plurals":
+                childlist = list(child)
+                for item in childlist:
+                    line = line + 1
+                    textid = child.attrib["name"] + "$plurals$" + item.attrib["quantity"]
+                    text = item.text
+                    iddict[textid] = line
+                    sheet.write(line, 0, textid)
+                    sheet.write(line, column, text)
 
         else:
-            line = iddict.get(child.attrib["name"])
-            sheet.write(line, column, child.text)
+            if child.tag == "string":
+                textid = child.attrib["name"]
+                text = child.text
+                line = iddict.get(textid)
+                sheet.write(line, column, text)
+
+            elif child.tag == "string-array":
+                childlist = list(child)
+                for item in childlist:
+                    textid = child.attrib["name"] + "$string-array$" + str(childlist.index(item))
+                    text = item.text
+                    line = iddict.get(textid)
+                    sheet.write(line, column, text)
+
+            elif child.tag == "plurals":
+                childlist = list(child)
+                for item in childlist:
+                    textid = child.attrib["name"] + "$plurals$" + item.attrib["quantity"]
+                    text = item.text
+                    line = iddict.get(textid)
+                    sheet.write(line, column, text)
+
     return
 
 def generatesheet(project):
