@@ -1,0 +1,5 @@
+
+# 在Android全部项目目录下运行，可以快速查找可能存在的xml字符串文件
+grep -lr "<string name" * | grep -v "intermediates" | grep -F "/values/" | grep -Fv "strings.xml" | grep -Fv "strings_untranslated.xml"
+grep -lr "<plurals name" * | grep -v "intermediates" | grep -F "/values/" | grep -Fv "strings.xml" | grep -Fv "strings_untranslated.xml"
+grep -lr "<string-array name" * | grep -v "intermediates" | grep -F "/values/" | grep -Fv "strings.xml" | grep -Fv "strings_untranslated.xml"
