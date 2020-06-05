@@ -127,6 +127,10 @@ def fillsheet(project, target, iddict, column, modify):
     return
 
 def generatesheet(project):
+    stringslist = list()
+    stringslist.append("strings.xml")
+    stringslist.append("strings_untranslated.xml")
+    stringslist.append("speech.xml")
     valueslist = list()
     valueslist.append("values")
     valueslist.append("values-en")
@@ -152,7 +156,7 @@ def generatesheet(project):
     print("generatesheet() 应用路径: " + project.rootPath)
     for root, dirs, files in os.walk(project.rootPath):
         for file in files:
-            if file == "strings.xml" or file == "strings_untranslated.xml":
+            if file in stringslist:
                 path = (root + "/" + file).replace("/", "\\")
                 pathsplit = path.split("\\")
                 index = valueslist.index(pathsplit[-2])
