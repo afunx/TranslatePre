@@ -35,12 +35,28 @@ class Target:
 
 def createproject():
     projectlist = list()
-    project1 = Project("屏保", "D:\\Code\\Android\\aimbot\\AimbotScreenDisplay")
+    project1 = Project("OTA升级", "D:\\Code\\Android\\aimbot\\AndroidService_OTA")
     projectlist.append(project1)
-    project2 = Project("用户管理", "D:\\Code\\Android\\aimbot\\AndroidService_UserMgr")
+    project2 = Project("电源管理", "D:\\Code\\Android\\aimbot\\AndroidService_PowerManager")
     projectlist.append(project2)
-    project3 = Project("开机向导", "D:\\Code\\Android\\aimbot\\AndroidService_BootWizard")
+    project3 = Project("用户管理", "D:\\Code\\Android\\aimbot\\AndroidService_UserMgr")
     projectlist.append(project3)
+    project4 = Project("设置", "D:\\Code\\Android\\aimbot\\AndroidService_Setting")
+    projectlist.append(project4)
+    project5 = Project("Launcher", "D:\\Code\\Android\\aimbot\\PatrolIndoorLanucher")
+    projectlist.append(project5)
+    project6 = Project("ApiRunner", "D:\\Code\\Android\\aimbot\\AndroidService_DemoCode")
+    projectlist.append(project6)
+    project7 = Project("防疫应用", "D:\\Code\\Android\\aimbot\\AimbotPrevention")
+    projectlist.append(project7)
+    project8 = Project("开机向导", "D:\\Code\\Android\\aimbot\\AndroidService_BootWizard")
+    projectlist.append(project8)
+    project9 = Project("硬件诊断", "D:\\Code\\Android\\aimbot\\AndroidService_CruzrDoctor")
+    projectlist.append(project9)
+    project10 = Project("系统检测", "D:\\Code\\Android\\aimbot\\AndroidService_SystemFaultDetection")
+    projectlist.append(project10)
+    project11 = Project("地图", "D:\\Code\\Android\\aimbot\\AndroidService_Navigation")
+    projectlist.append(project11)
     return projectlist
 
 def createsheets(workbook, projectlist):
@@ -54,6 +70,10 @@ def createsheets(workbook, projectlist):
         project.sheet.set_column('E:E', 50)
         project.sheet.set_column('F:F', 50)
         project.sheet.set_column('G:G', 50)
+        project.sheet.set_column('H:H', 50)
+        project.sheet.set_column('I:I', 50)
+        project.sheet.set_column('J:J', 50)
+        project.sheet.set_column('K:K', 50)
     return
 
 def printboundary(str):
@@ -134,6 +154,8 @@ def generatesheet(project):
     valueslist = list()
     valueslist.append("values")
     valueslist.append("values-en")
+    valueslist.append("values-en-rUS")
+    valueslist.append("values-zh")
     valueslist.append("values-zh-rCN")
     valueslist.append("values-zh-rTW")
     valueslist.append("values-th-rTH")
@@ -141,16 +163,9 @@ def generatesheet(project):
     # Target列表的列表, targetlist[0]为values文件下的全部Target, targetlist[1]为values-en文件夹下的全部Target
     # Target的path为文件路径, Target的module为模块
     targetlist = list()
-    # 行
-    i = 0
-    # 列
-    j = 0
-    # 第一行写列名
-    project.sheet.write(i, j, "id")
-    for values in valueslist:
+
+    for i in range(len(valueslist)):
         targetlist.append(list())
-        j = j + 1
-        project.sheet.write(i, j, values)
 
     # 根据语言对文件进行分类
     print("generatesheet() 应用路径: " + project.rootPath)
@@ -167,8 +182,14 @@ def generatesheet(project):
     # id索引
     iddict = dict()
     # 处理values
+    column = 0
+    # (0,0)写id
+    project.sheet.write(0, 0, "id")
     for targets in targetlist:
-        column = targetlist.index(targets) + 1
+        if len(targets) == 0:
+            continue
+        column = column + 1
+        project.sheet.write(0, column, valueslist[targetlist.index(targets)])
         for target in targets:
             # 只有strings可以修改iddict
             modify = column == 1
