@@ -35,28 +35,30 @@ class Target:
 
 def createproject():
     projectlist = list()
-    project1 = Project("OTA升级", "D:\\Code\\Android\\aimbot\\AndroidService_OTA")
+    project1 = Project("OTA升级", "D:\\Code\\Android\\aimbot-prevention\\AndroidService_OTA")
     projectlist.append(project1)
-    project2 = Project("电源管理", "D:\\Code\\Android\\aimbot\\AndroidService_PowerManager")
+    project2 = Project("电源管理", "D:\\Code\\Android\\aimbot-prevention\\AndroidService_PowerManager")
     projectlist.append(project2)
-    project3 = Project("用户管理", "D:\\Code\\Android\\aimbot\\AndroidService_UserMgr")
-    projectlist.append(project3)
-    project4 = Project("设置", "D:\\Code\\Android\\aimbot\\AndroidService_Setting")
+    # project3 = Project("用户管理", "D:\\Code\\Android\\aimbot-prevention\\AndroidService_UserMgr")
+    # projectlist.append(project3)
+    project4 = Project("设置", "D:\\Code\\Android\\aimbot-prevention\\AndroidService_Setting")
     projectlist.append(project4)
-    project5 = Project("Launcher", "D:\\Code\\Android\\aimbot\\PatrolIndoorLanucher")
+    project5 = Project("Launcher", "D:\\Code\\Android\\aimbot-prevention\\PatrolIndoorLanucher")
     projectlist.append(project5)
-    project6 = Project("ApiRunner", "D:\\Code\\Android\\aimbot\\AndroidService_DemoCode")
+    project6 = Project("ApiRunner", "D:\\Code\\Android\\aimbot-prevention\\AndroidService_DemoCode")
     projectlist.append(project6)
-    project7 = Project("防疫应用", "D:\\Code\\Android\\aimbot\\AimbotPrevention")
+    project7 = Project("防疫应用", "D:\\Code\\Android\\aimbot-prevention\\AimbotPrevention")
     projectlist.append(project7)
-    project8 = Project("开机向导", "D:\\Code\\Android\\aimbot\\AndroidService_BootWizard")
+    project8 = Project("开机向导", "D:\\Code\\Android\\aimbot-prevention\\AndroidService_BootWizard")
     projectlist.append(project8)
-    project9 = Project("硬件诊断", "D:\\Code\\Android\\aimbot\\AndroidService_CruzrDoctor")
+    project9 = Project("硬件诊断", "D:\\Code\\Android\\aimbot-prevention\\AndroidService_CruzrDoctor")
     projectlist.append(project9)
-    project10 = Project("系统检测", "D:\\Code\\Android\\aimbot\\AndroidService_SystemFaultDetection")
+    project10 = Project("系统检测", "D:\\Code\\Android\\aimbot-prevention\\AndroidService_SystemFaultDetection")
     projectlist.append(project10)
-    project11 = Project("地图", "D:\\Code\\Android\\aimbot\\AndroidService_Navigation")
+    project11 = Project("地图", "D:\\Code\\Android\\aimbot-prevention\\AndroidService_Navigation")
     projectlist.append(project11)
+    project12 = Project("SkillLauncher", "D:\\Code\\Android\\aimbot-prevention\\AndroidService_Navigation")
+    projectlist.append(project12)
     return projectlist
 
 def createsheets(workbook, projectlist):
@@ -126,7 +128,10 @@ def fillsheet(project, target, iddict, column, modify):
                 textid = module + "$" + child.attrib["name"]
                 text = child.text
                 line = iddict.get(textid)
-                sheet.write(line, column, text)
+                if line is not None:
+                    sheet.write(line, column, text)
+                else:
+                    print("WARNING:: textid: " + textid + " is invalid")
 
             elif child.tag == "string-array":
                 childlist = list(child)
@@ -134,7 +139,10 @@ def fillsheet(project, target, iddict, column, modify):
                     textid = module + "$" + child.attrib["name"] + "$string-array$" + str(childlist.index(item))
                     text = item.text
                     line = iddict.get(textid)
-                    sheet.write(line, column, text)
+                    if line is not None:
+                        sheet.write(line, column, text)
+                    else:
+                        print("WARNING:: textid: " + textid + " is invalid")
 
             elif child.tag == "plurals":
                 childlist = list(child)
@@ -151,6 +159,7 @@ def generatesheet(project):
     stringslist.append("strings.xml")
     stringslist.append("strings_untranslated.xml")
     stringslist.append("speech.xml")
+    stringslist.append("arrays.xml")
     valueslist = list()
     valueslist.append("values")
     valueslist.append("values-en")
