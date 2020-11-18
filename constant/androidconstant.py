@@ -4,6 +4,7 @@ def getStringXmlFileNameList():
     stringslist.append("strings.xml")
     stringslist.append("strings_untranslated.xml")
     stringslist.append("speech.xml")
+    stringslist.append("speech_untranslated.xml")
     stringslist.append("arrays.xml")
     return stringslist
 
