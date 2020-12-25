@@ -40,6 +40,8 @@ class AndroidProject:
             projectlist.append(project10)
             project10 = AndroidProject("屏保", "D:\\Code\\Android\\aimbot\\AimbotScreenDisplay")
             projectlist.append(project10)
+            project11 = AndroidProject("系统自检", "D:\\Code\\Android\\aimbot\\AimbotSelfInspection")
+            projectlist.append(project11)
         else:
             project1 = AndroidProject("OTA升级", "D:\\Code\\Android\\aimbot-prevention\\AndroidService_OTA")
             projectlist.append(project1)
